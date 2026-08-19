@@ -1,0 +1,136 @@
+version: "3.8"
+
+services:
+  # ==================== 后端服务 ====================
+  backend:
+    build:
+      context: ./src/backend
+      dockerfile: Dockerfile
+    ports:
+      - "${BACKEND_PORT:-18080}:8000"
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@postgres:5432/moderation
+      - DATABASE_URL_SYNC=postgresql://postgres:postgres@postgres:5432/moderation
+      - REDIS_URL=redis://redis:6379/0
+      - CHROMA_URL=http://chromadb:8000
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+      - DEEPSEEK_BASE_URL=${DEEPSEEK_BASE_URL:-https://api.deepseek.com}
+      - QWEN_VL_API_KEY=${QWEN_VL_API_KEY}
+      - QWEN_VL_BASE_URL=${QWEN_VL_BASE_URL:-https://ws-66r3o2tog5uege0b.cn-beijing.maas.aliyuncs.com/compatible-mode/v1}
+      - QWEN_VL_MODEL=${QWEN_VL_MODEL:-qwen3.6-plus}
+      - FUNASR_URL=http://funasr:5001
+      - LOG_LEVEL=INFO
+      # 禁用 Reranker，避免 GPU OOM
+      - ENABLE_RERANKER=false
+      # 端口（供 capabilities 报告与 CORS 同步；容器内互联仍用 postgres:5432 等内部地址）
+      - BACKEND_PORT=${BACKEND_PORT:-18080}
+      - FRONTEND_PORT=${FRONTEND_PORT:-13000}
+      - FUNASR_PORT=${FUNASR_PORT:-15001}
+      - PG_PORT=${PG_PORT:-15432}
+      - REDIS_PORT=${REDIS_PORT:-16379}
+      - CHROMA_PORT=${CHROMA_PORT:-18001}
+      # JSON 数组字符串（pydantic list[str] 解析）；docker 模式前端固定 13000
+      - 'CORS_ORIGINS=["http://localhost:13000"]'
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      chromadb:
+        condition: service_started
+      funasr:
+        condition: service_started
+    volumes:
+      - ./src/backend:/app
+      - ./configs:/app/configs
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload --log-level info
+    restart: unless-stopped
+
+  # ==================== 前端服务 ====================
+  frontend:
+    build:
+      context: ./src/frontend
+      dockerfile: Dockerfile
+    ports:
+      - "${FRONTEND_PORT:-13000}:3000"
+    depends_on:
+      - backend
+    volumes:
+      - ./src/frontend/src:/app/src
+    environment:
+      # 浏览器访问前端容器时经宿主端口转发到 backend:18080
+      - VITE_API_URL=http://backend:18080
+      - VITE_WS_URL=ws://backend:18080
+    restart: unless-stopped
+
+  # ==================== PostgreSQL ====================
+  postgres:
+    image: postgres:16-alpine
+    ports:
+      - "${PG_PORT:-15432}:5432"
+    environment:
+      - POSTGRES_DB=moderation
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./src/backend/db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d moderation"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # ==================== Redis ====================
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "${REDIS_PORT:-16379}:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+
+  # ==================== ChromaDB ====================
+  chromadb:
+    image: chromadb/chroma:0.4.24
+    ports:
+      - "${CHROMA_PORT:-18001}:8000"
+    volumes:
+      - chroma_data:/chroma/chroma
+    environment:
+      - IS_PERSISTENT=TRUE
+      - ANONYMIZED_TELEMETRY=FALSE
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/api/v1/heartbeat', timeout=3).status==200 else 1)"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # ==================== FunASR ====================
+  funasr:
+    build:
+      context: ./src/funasr
+      dockerfile: Dockerfile
+    ports:
+      - "${FUNASR_PORT:-15001}:5001"
+    volumes:
+      - funasr_models:/models
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:5001/health', timeout=5).status==200 else 1)"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
+  chroma_data:
+  funasr_models:

@@ -1,0 +1,342 @@
+[
+  {
+    "text": "加微信 xxx123456 免费领取红包，扫码关注有惊喜",
+    "type": "advertisement",
+    "should_trigger": true
+  },
+  {
+    "text": "想做兼职吗？日赚500不是梦，加我QQ：123456789",
+    "type": "advertisement",
+    "should_trigger": true
+  },
+  {
+    "text": "关注公众号 XXX，免费咨询了解详情，限时特惠",
+    "type": "advertisement",
+    "should_trigger": true
+  },
+  {
+    "text": "扫码下载APP领取现金红包，邀请好友赚更多",
+    "type": "advertisement",
+    "should_trigger": true
+  },
+  {
+    "text": "微信搜索 xxx123 免费领取学习资料，名额有限",
+    "type": "advertisement",
+    "should_trigger": true
+  },
+  {
+    "text": "兼职刷单，在家就能赚钱，联系QQ",
+    "type": "advertisement",
+    "should_trigger": true
+  },
+  {
+    "text": "扫码领红包，每人都有，快来参与",
+    "type": "advertisement",
+    "should_trigger": true
+  },
+  {
+    "text": "加微信XX，日赚千元不是梦",
+    "type": "advertisement",
+    "should_trigger": true
+  },
+  {
+    "text": "私密视频在线观看，加微信看更多精彩内容",
+    "type": "porn",
+    "should_trigger": true
+  },
+  {
+    "text": "美女直播一对一私聊，包你满意",
+    "type": "porn",
+    "should_trigger": true
+  },
+  {
+    "text": "深夜福利资源群，各种高清视频无限观看",
+    "type": "porn",
+    "should_trigger": true
+  },
+  {
+    "text": "裸聊交友软件下载，同城约会",
+    "type": "porn",
+    "should_trigger": true
+  },
+  {
+    "text": "成人内容免费分享，私信获取链接",
+    "type": "porn",
+    "should_trigger": true
+  },
+  {
+    "text": "加我微信看私密视频，超低价会员",
+    "type": "porn",
+    "should_trigger": true
+  },
+  {
+    "text": "深夜福利，点击链接看更多精彩内容",
+    "type": "porn",
+    "should_trigger": true
+  },
+  {
+    "text": "色情表演直播，付费观看",
+    "type": "porn",
+    "should_trigger": true
+  },
+  {
+    "text": "推翻现有秩序，建立新的自由世界",
+    "type": "politics",
+    "should_trigger": true
+  },
+  {
+    "text": "支持独立运动，各省应该自决",
+    "type": "politics",
+    "should_trigger": true
+  },
+  {
+    "text": "重大消息：某领导人涉嫌严重违法违纪",
+    "type": "politics",
+    "should_trigger": true
+  },
+  {
+    "text": "策划大规模抗议活动，一起站出来发声",
+    "type": "politics",
+    "should_trigger": true
+  },
+  {
+    "text": "分裂言论：呼吁地区脱离中央政府",
+    "type": "politics",
+    "should_trigger": true
+  },
+  {
+    "text": "绝密内部消息，赶紧转发",
+    "type": "politics",
+    "should_trigger": true
+  },
+  {
+    "text": "解密某重大事件真相，全网疯传",
+    "type": "politics",
+    "should_trigger": true
+  },
+  {
+    "text": "号召全民抵制政府决策",
+    "type": "politics",
+    "should_trigger": true
+  },
+  {
+    "text": "你这个垃圾废物，怎么不去死啊",
+    "type": "harassment",
+    "should_trigger": true
+  },
+  {
+    "text": "XX公司的产品就是垃圾，谁买谁傻逼",
+    "type": "harassment",
+    "should_trigger": true
+  },
+  {
+    "text": "人肉搜索这个人，大家一起网暴他",
+    "type": "harassment",
+    "should_trigger": true
+  },
+  {
+    "text": "你个不要脸的东西，全家都没教养",
+    "type": "harassment",
+    "should_trigger": true
+  },
+  {
+    "text": "这种人也配活着？建议去自裁",
+    "type": "harassment",
+    "should_trigger": true
+  },
+  {
+    "text": "这个人太恶心了，见一次打一次",
+    "type": "harassment",
+    "should_trigger": true
+  },
+  {
+    "text": "有种你过来，我让你知道什么叫后悔",
+    "type": "harassment",
+    "should_trigger": true
+  },
+  {
+    "text": "网络暴力这个ID，一起举报封号",
+    "type": "harassment",
+    "should_trigger": true
+  },
+  {
+    "text": "详细教你如何制造炸弹，教程完整版",
+    "type": "violence",
+    "should_trigger": true
+  },
+  {
+    "text": "我要杀了你全家，一个不留",
+    "type": "violence",
+    "should_trigger": true
+  },
+  {
+    "text": "支持恐怖组织的正义行动",
+    "type": "violence",
+    "should_trigger": true
+  },
+  {
+    "text": "教你如何购买枪支弹药，渠道靠谱",
+    "type": "violence",
+    "should_trigger": true
+  },
+  {
+    "text": "对这些人就应该用暴力解决，法律没用",
+    "type": "violence",
+    "should_trigger": true
+  },
+  {
+    "text": "砍死这个贱人，太可恶了",
+    "type": "violence",
+    "should_trigger": true
+  },
+  {
+    "text": "爆炸物制作方法，简单易学",
+    "type": "violence",
+    "should_trigger": true
+  },
+  {
+    "text": "发动袭击的最佳时机到了",
+    "type": "violence",
+    "should_trigger": true
+  },
+  {
+    "text": "恭喜您中奖了，请点击链接领取奖金",
+    "type": "false_info",
+    "should_trigger": true
+  },
+  {
+    "text": "您的银行卡出现问题，请转账到安全账户",
+    "type": "false_info",
+    "should_trigger": true
+  },
+  {
+    "text": "恭喜你获得本公司一等奖，奖金100万，请将银行卡号和密码发来确认",
+    "type": "false_info",
+    "should_trigger": true
+  },
+  {
+    "text": "官方通知：你的账户存在安全隐患，请立即点击链接验证身份",
+    "type": "false_info",
+    "should_trigger": true
+  },
+  {
+    "text": "某地发生重大地震，死亡数千人",
+    "type": "false_info",
+    "should_trigger": true
+  },
+  {
+    "text": "据内部消息，某上市公司即将暴雷，赶紧卖出手中的股票",
+    "type": "false_info",
+    "should_trigger": true
+  },
+  {
+    "text": "转发：某食品含有致癌物质，国家已经全面禁止销售",
+    "type": "false_info",
+    "should_trigger": true
+  },
+  {
+    "text": "出售各种违禁品，需要的联系",
+    "type": "false_info",
+    "should_trigger": true
+  },
+  {
+    "text": "特效药包治百病，无效退款",
+    "type": "false_info",
+    "should_trigger": true
+  },
+  {
+    "text": "投资稳赚不赔，年化收益100%",
+    "type": "false_info",
+    "should_trigger": true
+  },
+  {
+    "text": "加 薇 信 免 费 领 取 红 包",
+    "type": "advertisement",
+    "should_trigger": true,
+    "is_adversarial": true
+  },
+  {
+    "text": "vjp 低价出售，品质保证",
+    "type": "advertisement",
+    "should_trigger": true,
+    "is_adversarial": true
+  },
+  {
+    "text": "加​微​信​看​直​播",
+    "type": "porn",
+    "should_trigger": true,
+    "is_adversarial": true
+  },
+  {
+    "text": "ɡuan注 公zhong号 免fei 咨xun",
+    "type": "advertisement",
+    "should_trigger": true,
+    "is_adversarial": true
+  },
+  {
+    "text": "WēiXìn搜索xxx领取🧧💰🎁",
+    "type": "advertisement",
+    "should_trigger": true,
+    "is_adversarial": true
+  },
+  {
+    "text": "w e i x i n 1 2 3 4 5 6",
+    "type": "advertisement",
+    "should_trigger": true,
+    "is_adversarial": true
+  },
+  {
+    "text": "免费の福利，限时の特价，日赚の500",
+    "type": "advertisement",
+    "should_trigger": true,
+    "is_adversarial": true
+  },
+  {
+    "text": "加V信zhuan账，稳赚不赔联系我",
+    "type": "advertisement",
+    "should_trigger": true,
+    "is_adversarial": true
+  },
+  {
+    "text": "扫馬领紅包，每人都有的",
+    "type": "advertisement",
+    "should_trigger": true,
+    "is_adversarial": true
+  },
+  {
+    "text": "正规平台 专业服务 联系微信 xxx 限时福利",
+    "type": "advertisement",
+    "should_trigger": true,
+    "is_adversarial": true
+  },
+  {
+    "text": "请！点！击！链！接！领！取！奖！品！",
+    "type": "advertisement",
+    "should_trigger": true,
+    "is_adversarial": true
+  },
+  {
+    "text": "囲产A片，成R视频，免费観看",
+    "type": "porn",
+    "should_trigger": true,
+    "is_adversarial": true
+  },
+  {
+    "text": "加威信看私蜜视频，超低价惠员",
+    "type": "porn",
+    "should_trigger": true,
+    "is_adversarial": true
+  },
+  {
+    "text": "shou ji hao ma: 138 xxxx xxxx",
+    "type": "advertisement",
+    "should_trigger": true,
+    "is_adversarial": true
+  },
+  {
+    "text": "㊙️内部渠道㊙️日赚1000➕",
+    "type": "advertisement",
+    "should_trigger": true,
+    "is_adversarial": true
+  }
+]

@@ -1,0 +1,10 @@
+# Python
+__pycache__
+*.py[cod]
+
+# Models (如果需要挂载外部)
+/models/
+
+# Git
+.git/
+.gitignore

@@ -1,0 +1,110 @@
+version: "3.8"
+
+services:
+  # ==================== 后端服务 ====================
+  backend:
+    image: registry.cn-hangzhou.aliyuncs.com/moderation-system/moderation-backend:v1.0
+    ports:
+      - "${BACKEND_PORT:-18080}:8000"
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@postgres:5432/moderation
+      - DATABASE_URL_SYNC=postgresql://postgres:postgres@postgres:5432/moderation
+      - REDIS_URL=redis://redis:6379/0
+      - CHROMA_URL=http://chromadb:8000
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+      - DEEPSEEK_BASE_URL=${DEEPSEEK_BASE_URL:-https://api.deepseek.com}
+      - QWEN_VL_API_KEY=${QWEN_VL_API_KEY}
+      - QWEN_VL_BASE_URL=${QWEN_VL_BASE_URL:-https://ws-66r3o2tog5uege0b.cn-beijing.maas.aliyuncs.com/compatible-mode/v1}
+      - QWEN_VL_MODEL=${QWEN_VL_MODEL:-qwen3.6-plus}
+      - FUNASR_URL=http://funasr:5001
+      - LOG_LEVEL=INFO
+      - ENABLE_RERANKER=false
+      - 'CORS_ORIGINS=["http://localhost:13000"]'
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      chromadb:
+        condition: service_started
+      funasr:
+        condition: service_started
+    restart: unless-stopped
+
+  # ==================== 前端服务 ====================
+  frontend:
+    image: registry.cn-hangzhou.aliyuncs.com/moderation-system/moderation-frontend:v1.0
+    ports:
+      - "${FRONTEND_PORT:-13000}:3000"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  # ==================== PostgreSQL ====================
+  postgres:
+    image: postgres:16-alpine
+    ports:
+      - "${PG_PORT:-15432}:5432"
+    environment:
+      - POSTGRES_DB=moderation
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d moderation"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # ==================== Redis ====================
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "${REDIS_PORT:-16379}:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+
+  # ==================== ChromaDB ====================
+  chromadb:
+    image: chromadb/chroma:0.4.24
+    ports:
+      - "${CHROMA_PORT:-18001}:8000"
+    volumes:
+      - chroma_data:/chroma/chroma
+    environment:
+      - IS_PERSISTENT=TRUE
+      - ANONYMIZED_TELEMETRY=FALSE
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/api/v1/heartbeat', timeout=3).status==200 else 1)"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # ==================== FunASR ====================
+  funasr:
+    image: registry.cn-hangzhou.aliyuncs.com/moderation-system/moderation-funasr:v1.0
+    ports:
+      - "${FUNASR_PORT:-15001}:5001"
+    volumes:
+      - funasr_models:/models
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:5001/health', timeout=5).status==200 else 1)"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
+  chroma_data:
+  funasr_models:

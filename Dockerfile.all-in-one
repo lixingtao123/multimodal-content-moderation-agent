@@ -1,0 +1,167 @@
+# ==============================================================================
+# 内容风控智能治理系统 — 单容器全栈部署
+# 包含: PostgreSQL + Redis + ChromaDB + Backend + Frontend + FunASR
+# 使用 supervisord 管理所有进程
+# ==============================================================================
+
+FROM ubuntu:22.04 AS base
+
+# 基础配置
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=Asia/Shanghai
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+WORKDIR /app
+
+# 系统依赖
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    sudo \
+    curl \
+    wget \
+    gnupg2 \
+    lsb-release \
+    ca-certificates \
+    tzdata \
+    build-essential \
+    pkg-config \
+    ffmpeg \
+    nginx \
+    supervisor \
+    nodejs \
+    npm \
+    python3.10 \
+    python3-pip \
+    python3-venv \
+    libpq-dev \
+    libssl-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# ==============================================================================
+# 阶段 1: 安装 PostgreSQL
+# ==============================================================================
+FROM base AS postgres-install
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    postgresql-14 \
+    postgresql-contrib-14 \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /var/lib/postgresql/14/main/* \
+    && mkdir -p /var/lib/postgresql/14/main \
+    && chown -R postgres:postgres /var/lib/postgresql
+
+# ==============================================================================
+# 阶段 2: 安装 Redis
+# ==============================================================================
+FROM base AS redis-install
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    redis-server \
+    && rm -rf /var/lib/apt/lists/*
+
+# ==============================================================================
+# 阶段 3: 构建 Backend
+# ==============================================================================
+FROM base AS backend-builder
+
+# 构建依赖
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# 复制代码
+COPY src/backend/requirements-prod.txt /app/
+
+# 创建 venv 并安装依赖
+RUN python3 -m venv /app/venv \
+    && . /app/venv/bin/activate \
+    && pip install --upgrade pip \
+    && pip install --no-cache-dir -r /app/requirements-prod.txt
+
+# 复制 backend 代码
+COPY src/backend /app/backend
+
+# ==============================================================================
+# 阶段 4: 构建 Frontend
+# ==============================================================================
+FROM base AS frontend-builder
+
+# 复制前端代码
+COPY src/frontend /app/frontend
+
+# 安装依赖并构建
+RUN cd /app/frontend \
+    && npm install \
+    && npm run build
+
+# ==============================================================================
+# 阶段 5: 构建 FunASR
+# ==============================================================================
+FROM base AS funasr-builder
+
+COPY src/funasr /app/funasr
+
+RUN cd /app/funasr \
+    && pip install --no-cache-dir funasr modelscope fastapi uvicorn python-multipart
+
+# ==============================================================================
+# 最终镜像
+# ==============================================================================
+FROM base AS final
+
+# 从各阶段复制
+COPY --from=postgres-install /usr/lib/postgresql /usr/lib/postgresql
+COPY --from=postgres-install /usr/share/postgresql /usr/share/postgresql
+COPY --from=postgres-install /var/lib/postgresql /var/lib/postgresql
+COPY --from=redis-install /usr/bin/redis-server /usr/bin/redis-server
+COPY --from=backend-builder /app/venv /app/venv
+COPY --from=backend-builder /app/backend /app/backend
+COPY --from=frontend-builder /app/frontend/dist /app/frontend/dist
+COPY --from=frontend-builder /app/frontend/nginx.conf /etc/nginx/sites-available/default
+COPY --from=funasr-builder /app/funasr /app/funasr
+
+# 安装运行时 Python 依赖（ChromaDB 等）
+RUN . /app/venv/bin/activate \
+    && pip install --no-cache-dir chromadb
+
+# 创建数据目录
+RUN mkdir -p /data/postgres /data/redis /data/chroma /app/logs /app/tmp \
+    && chown -R postgres:postgres /data/postgres \
+    && chown -R nobody:nogroup /data/redis \
+    && chmod -R 755 /data
+
+# 配置 Nginx
+RUN rm -f /etc/nginx/sites-enabled/default \
+    && ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
+# 复制 supervisord 配置
+COPY deploy/supervisord.conf /etc/supervisor/conf.d/all-in-one.conf
+
+# 复制初始化脚本
+COPY deploy/init.sh /app/init.sh
+RUN chmod +x /app/init.sh
+
+# 环境变量（默认值，可覆盖）
+ENV DATABASE_URL=postgresql+asyncpg://postgres:postgres@localhost:5432/moderation
+ENV DATABASE_URL_SYNC=postgresql://postgres:postgres@localhost:5432/moderation
+ENV REDIS_URL=redis://localhost:6379/0
+ENV CHROMA_URL=http://localhost:8001
+ENV FUNASR_URL=http://localhost:5001
+ENV ENABLE_RERANKER=false
+ENV PYTHONPATH=/app/backend
+
+# 暴露端口
+EXPOSE 13000
+EXPOSE 18080
+EXPOSE 15432
+EXPOSE 16379
+EXPOSE 18001
+EXPOSE 15001
+
+# 健康检查
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD curl -f http://localhost:18080/health || exit 1
+
+# 启动
+CMD ["/app/init.sh"]

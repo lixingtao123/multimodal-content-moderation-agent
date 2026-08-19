@@ -1,0 +1,366 @@
+{
+  "name": "内容审核测试数据集",
+  "version": "1.0.0",
+  "generated_at": "2025-07-17",
+  "samples": {
+    "text": [
+      {
+        "id": "df8a1583",
+        "content_type": "text",
+        "content": {
+          "text": "今天做了个体检，一切正常"
+        },
+        "label": "PASS"
+      },
+      {
+        "id": "33db5757",
+        "content_type": "text",
+        "content": {
+          "text": "晚上做了红烧肉，家人都说好吃"
+        },
+        "label": "PASS"
+      },
+      {
+        "id": "afbdd127",
+        "content_type": "text",
+        "content": {
+          "text": "坚持早起一周了，继续加油"
+        },
+        "label": "PASS"
+      },
+      {
+        "id": "8f4fd073",
+        "content_type": "text",
+        "content": {
+          "text": "最近在研究机器学习，有点难度"
+        },
+        "label": "PASS"
+      },
+      {
+        "id": "15c39682",
+        "content_type": "text",
+        "content": {
+          "text": "出售各种违禁品，需要的联系"
+        },
+        "label": "REJECT"
+      },
+      {
+        "id": "e9c59582",
+        "content_type": "text",
+        "content": {
+          "text": "有种你过来，我让你知道什么叫后悔"
+        },
+        "label": "REJECT"
+      },
+      {
+        "id": "1277f36b",
+        "content_type": "text",
+        "content": {
+          "text": "推荐几首最近常听的音乐"
+        },
+        "label": "PASS"
+      },
+      {
+        "id": "12291e7b",
+        "content_type": "text",
+        "content": {
+          "text": "学习编程需要耐心和实践"
+        },
+        "label": "PASS"
+      },
+      {
+        "id": "23fe6d6c",
+        "content_type": "text",
+        "content": {
+          "text": "分享一下今天的穿搭"
+        },
+        "label": "PASS"
+      },
+      {
+        "id": "49fbdd19",
+        "content_type": "text",
+        "content": {
+          "text": "今天收到一个好消息，分享快乐"
+        },
+        "label": "PASS"
+      },
+      {
+        "id": "83b358ba",
+        "content_type": "text",
+        "content": {
+          "text": "给大家推荐一个很好用的笔记软件"
+        },
+        "label": "PASS"
+      },
+      {
+        "id": "98d4cfcd",
+        "content_type": "text",
+        "content": {
+          "text": "分享一下最近的学习笔记"
+        },
+        "label": "PASS"
+      },
+      {
+        "id": "9507f011",
+        "content_type": "text",
+        "content": {
+          "text": "最近在学钢琴，虽然很慢但很开心"
+        },
+        "label": "PASS"
+      },
+      {
+        "id": "87c23f42",
+        "content_type": "text",
+        "content": {
+          "text": "恭喜您中奖了，请点击链接领取奖金"
+        },
+        "label": "REJECT"
+      },
+      {
+        "id": "1b3f9216",
+        "content_type": "text",
+        "content": {
+          "text": "这家餐厅的菜品很好吃，推荐大家试试"
+        },
+        "label": "PASS"
+      },
+      {
+        "id": "09088b9d",
+        "content_type": "text",
+        "content": {
+          "text": "扫码领红包，每人都有，快来参与"
+        },
+        "label": "REJECT"
+      },
+      {
+        "id": "288962e8",
+        "content_type": "text",
+        "content": {
+          "text": "这个人太恶心了，见一次打一次"
+        },
+        "label": "REJECT"
+      },
+      {
+        "id": "3de4324b",
+        "content_type": "text",
+        "content": {
+          "text": "扫码关注公众号，领取免费资料"
+        },
+        "label": "REJECT"
+      },
+      {
+        "id": "04241ef7",
+        "content_type": "text",
+        "content": {
+          "text": "加微信XX，日赚千元不是梦"
+        },
+        "label": "REJECT"
+      },
+      {
+        "id": "63a51a48",
+        "content_type": "text",
+        "content": {
+          "text": "养了一只猫，每天都很治愈"
+        },
+        "label": "PASS"
+      },
+      {
+        "id": "ec844b4e",
+        "content_type": "text",
+        "content": {
+          "text": "兼职刷单，在家就能赚钱，联系QQ"
+        },
+        "label": "REJECT"
+      },
+      {
+        "id": "e3cce31e",
+        "content_type": "text",
+        "content": {
+          "text": "加我微信看私密视频，超低价会员"
+        },
+        "label": "REJECT"
+      },
+      {
+        "id": "339f5936",
+        "content_type": "text",
+        "content": {
+          "text": "养花新手，这个多肉养得怎么样"
+        },
+        "label": "PASS"
+      },
+      {
+        "id": "c657f5a5",
+        "content_type": "text",
+        "content": {
+          "text": "今天学了一道新菜，味道不错"
+        },
+        "label": "PASS"
+      },
+      {
+        "id": "12ec41f5",
+        "content_type": "text",
+        "content": {
+          "text": "这个季节的樱花开了，特别美"
+        },
+        "label": "PASS"
+      },
+      {
+        "id": "d35b3957",
+        "content_type": "text",
+        "content": {
+          "text": "扫馬领紅包，每人都有的"
+        },
+        "label": "REJECT"
+      },
+      {
+        "id": "2cdab968",
+        "content_type": "text",
+        "content": {
+          "text": "绝密内部消息，赶紧转发"
+        },
+        "label": "REJECT"
+      },
+      {
+        "id": "c07b4905",
+        "content_type": "text",
+        "content": {
+          "text": "周末打算去爬山，放松一下心情"
+        },
+        "label": "PASS"
+      },
+      {
+        "id": "47a80cfb",
+        "content_type": "text",
+        "content": {
+          "text": "我最近在读一本很有趣的书"
+        },
+        "label": "PASS"
+      },
+      {
+        "id": "8144ec12",
+        "content_type": "text",
+        "content": {
+          "text": "今天去了一个新开的咖啡馆"
+        },
+        "label": "PASS"
+      },
+      {
+        "id": "bd7ecbf1",
+        "content_type": "text",
+        "content": {
+          "text": "分享一下我的读书笔记"
+        },
+        "label": "PASS"
+      },
+      {
+        "id": "78bd0929",
+        "content_type": "text",
+        "content": {
+          "text": "今天天气真好，适合去公园散步"
+        },
+        "label": "PASS"
+      },
+      {
+        "id": "8bde60d8",
+        "content_type": "text",
+        "content": {
+          "text": "推荐一个不错的旅游景点"
+        },
+        "label": "PASS"
+      },
+      {
+        "id": "8d52581a",
+        "content_type": "text",
+        "content": {
+          "text": "最近工作比较忙，等忙完好好休息"
+        },
+        "label": "PASS"
+      },
+      {
+        "id": "3339acb5",
+        "content_type": "text",
+        "content": {
+          "text": "深夜福利，点击链接看更多精彩内容"
+        },
+        "label": "REJECT"
+      },
+      {
+        "id": "40f05ceb",
+        "content_type": "text",
+        "content": {
+          "text": "周末带孩子去动物园玩了"
+        },
+        "label": "PASS"
+      },
+      {
+        "id": "dc717a5d",
+        "content_type": "text",
+        "content": {
+          "text": "刚看完比赛，太精彩了"
+        },
+        "label": "PASS"
+      },
+      {
+        "id": "8fe87df4",
+        "content_type": "text",
+        "content": {
+          "text": "刚看了一部很感人的电影"
+        },
+        "label": "PASS"
+      },
+      {
+        "id": "db7f44f1",
+        "content_type": "text",
+        "content": {
+          "text": "刚跑完10公里，感觉很不错"
+        },
+        "label": "PASS"
+      },
+      {
+        "id": "0cf2acc3",
+        "content_type": "text",
+        "content": {
+          "text": "周末约朋友去打篮球"
+        },
+        "label": "PASS"
+      },
+      {
+        "id": "5a898cc4",
+        "content_type": "text",
+        "content": {
+          "text": "您的银行卡出现问题，请转账到安全账户"
+        },
+        "label": "REJECT"
+      },
+      {
+        "id": "eea3a3fc",
+        "content_type": "text",
+        "content": {
+          "text": "健身半年了，效果很明显"
+        },
+        "label": "PASS"
+      },
+      {
+        "id": "84694fb7",
+        "content_type": "text",
+        "content": {
+          "text": "最近在学Python，挺有意思的"
+        },
+        "label": "PASS"
+      },
+      {
+        "id": "65b7c269",
+        "content_type": "text",
+        "content": {
+          "text": "加V信zhuan账，稳赚不赔联系我"
+        },
+        "label": "REJECT"
+      }
+    ]
+  },
+  "stats": {
+    "text_total": 44,
+    "text_normal": 30,
+    "text_violation": 14
+  }
+}

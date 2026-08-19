@@ -1,0 +1,23 @@
+{
+  "generated_at": "2026-08-06T17:40:06",
+  "tracks": {
+    "T1_intent": {
+      "status": "ok",
+      "note": "",
+      "samples": 90,
+      "duration_sec": 68.08,
+      "metrics": {
+        "accuracy": 0.8111111111111111,
+        "precision": 1.0,
+        "recall": 0.6222222222222222,
+        "f1": 0.7671232876712328,
+        "fpr": 0.0,
+        "intercept_recall": 0.6222222222222222,
+        "strict_reject_recall": 0.2,
+        "intercepted": 28,
+        "total_positives": 45,
+        "num_queries": 90
+      }
+    }
+  }
+}

@@ -1,0 +1,68 @@
+# 内容风控智能治理系统
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# 环境变量（含密钥）
+.env
+.env.local
+.env.production
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Docker
+docker-compose.override.yml
+
+# 数据
+data/
+*.sqlite3
+checkpoints.sqlite
+postgres_data/
+redis_data/
+chroma_data/
+funasr_models/
+
+# 示例/个人目录（可能含密钥或临时文件）
+example_dir/
+学习与求职指南/
+面试指南.md
+简历通用模板.docx
+skills_backups/
+skill_demo_data/
+*.zip
+
+# 模型下载
+models/
+*.bin
+*.safetensors
+
+# 日志
+logs/
+*.log
+*.jsonl
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 覆盖率
+htmlcov/
+.coverage
+.pytest_cache/
+
+# Node
+node_modules/
+dist/
+.vite/
+
+# 评测逐条结果（归因用，体积大不入库）
+eval/results/

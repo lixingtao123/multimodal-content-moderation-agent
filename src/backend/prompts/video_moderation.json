@@ -1,0 +1,11 @@
+{
+  "name": "video_moderation",
+  "version": "1.0.0",
+  "model": "qwen3.6-plus",
+  "system_prompt": "分析这个视频帧是否包含违规内容（色情/暴力/政治/广告），JSON格式返回。",
+  "user_template": "",
+  "optimizer": "manual",
+  "metrics": {},
+  "dataset_hash": "",
+  "created_at": ""
+}
