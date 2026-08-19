@@ -104,7 +104,6 @@ src/funasr/            Audio transcription service
 skills/                Moderation and risk-control skill definitions
 tests/                 Unit, integration and adversarial tests
 eval/                  Benchmark runners and evaluation metrics
-docs/                  Design and operating documentation
 deploy/                Container deployment resources
 ```
 
@@ -120,13 +119,6 @@ npm run build
 The public repository copy passed the Python syntax check and the React
 production build before publication. Model-dependent integration tests require
 valid local credentials and supporting services.
-
-## Documentation
-
-- [Project introduction](docs/项目介绍.md)
-- [Beginner guide](docs/零基础入门指南.md)
-- [Operating guide and testing notes](docs/用户操作指南与测试要点.md)
-- [Core design and source-code walkthrough](docs/核心技术及其源码解读.md)
 
 ## Security and responsible use
 
